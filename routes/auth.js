@@ -20,7 +20,6 @@ var password = '1qaz2wsx';
  * User sign in
  */
 router.get('/', function(req, res, next) {
-
     let user = firebase.auth().currentUser;
     
     if (user) {
