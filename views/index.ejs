@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyA1f3kyu8RSrEBoveUeXbc2sTx2fhqsUeY",
+			authDomain: "tonal-bank-198910.firebaseapp.com",
+			databaseURL: "https://tonal-bank-198910.firebaseio.com",
+			projectId: "tonal-bank-198910",
+			storageBucket: "tonal-bank-198910.appspot.com",
+			messagingSenderId: "400192559764"
+		};
+		firebase.initializeApp(config);
+		</script>
+		<script>
+			var email = 'vincent7697@gmail.com';
+			var password = 'eg907423';
+
+			function auth() {
+				firebase.auth().signInWithEmailAndPassword(email, password)
+					.then(res => {
+						console.log(res)
+					}).catch(function(error) {
+						// Handle Errors here.
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						if (errorCode === 'auth/wrong-password') {
+							alert('Wrong password.');
+						} else {
+							alert(errorMessage);
+						}
+						console.log(error);
+				});
+			}
+
+			function authInBack() {
+				axios.get('/auth')
+					.then(res => {
+						console.log(res.data.stsTokenManager.accessToken)
+					})
+			}
+
+			function signOut() {
+				firebase.auth().signOut().then(function() {
+					console.log('Signed Out');
+				}, function(error) {
+					console.error('Sign Out Error', error);
+				});
+			}
+			
+			function signOutBack() {
+				axios.get('/auth/signOut')
+					.then(res => {
+						console.log(res)
+					})
+			}
+		</script>
+	</head>
+	<body>
+		<h1><%= title %></h1>
+		<p>Welcome to <%= title %></p>
+		<br>
+		<button onclick="auth()">
+			test auth
+		</button>
+		<br>
+		<button onclick="authInBack()">
+			test auth from backend
+		</button>
+		<br>
+		<button onclick="signOut()">
+			sign out
+		</button>
+		<br>
+		<button onclick="signOutBack()">
+			sign out from backend
+		</button>
+	</body>
+</html>
