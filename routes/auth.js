@@ -22,6 +22,7 @@ var password = '1qaz2wsx';
 router.get('/', function(req, res, next) {
     let user = firebase.auth().currentUser;
     
+    /* 檢查目前是否有session存在，若有則回傳，若無則重新sign in */
     if (user) {
         res.send(user)
     } else {
