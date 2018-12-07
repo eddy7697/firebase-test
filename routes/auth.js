@@ -22,7 +22,12 @@ var password = '1qaz2wsx';
 router.get('/', function(req, res, next) {
     let user = firebase.auth().currentUser;
     
-    /* 檢查目前是否有session存在，若有則回傳，若無則重新sign in */
+    /* 
+     * 檢查目前是否有session存在，若有則回傳，若無則重新sign in 
+     * 換言之，A B可同時共用一組token
+     * 
+     * 備註：access token同時只有最新的那一組會有效。
+     */
     if (user) {
         res.send(user)
     } else {
